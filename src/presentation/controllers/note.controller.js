@@ -29,6 +29,31 @@ export default class NoteController {
     }
   }
 
+  
+  // EJERCICIO 3: MÉTODO RUTA PÚBLICA
+  
+  getPublicNote = async (req, res) => {
+    const { id } = req.params;
+    try {
+      // Asumimos que tienes un método getNoteById en tu NoteService
+      const note = await this.noteService.getNoteById(id);
+
+      if (!note) {
+        return res.status(404).json({ error: 'Nota no encontrada' });
+      }
+
+      // Validamos si la nota es privada para bloquear el acceso
+      if (note.isPrivate === true) {
+        return res.status(403).json({ error: 'Acceso denegado: Esta nota es privada' });
+      }
+
+      // Si es pública, la devolvemos
+      res.status(200).json(note);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+
   // --- MÉTODOS PARA LA TAREA (DENTRO DE LA CLASE) ---
 
   updateNote = async (req, res) => {
