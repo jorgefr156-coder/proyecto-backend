@@ -5,6 +5,7 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import 'express-async-errors';
+import categoryRoutes from './presentation/routes/category.routes.js';
 
 import { loggerMiddleware } from './presentation/middlewares/logger.middleware.js';
 import noteRoutes from './presentation/routes/note.routes.js';
@@ -35,6 +36,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // Rutas de la API
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/notes', noteRoutes);
+app.use('/api/v1/categories', categoryRoutes);
 
 app.get('/api/health', (req, res) => {
     res.status(200).json({ status: 'OK', message: 'API de notas activa' });

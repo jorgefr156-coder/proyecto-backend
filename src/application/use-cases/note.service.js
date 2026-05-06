@@ -11,6 +11,13 @@ export default class NoteService {
     return await this.noteRepository.getNotesByUserId(userId);
   }
 
+  // ==========================================
+  // NUEVO: Requerido para el Ejercicio 3 (Ruta Pública)
+  // ==========================================
+  async getNoteById(id) {
+    return await this.noteRepository.findById(id);
+  }
+
   async updateNote(id, data) {
     // Llama al método update del repositorio (Mongo o MySQL)
     return await this.noteRepository.update(id, data);
